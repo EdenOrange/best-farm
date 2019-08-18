@@ -12,7 +12,7 @@ class Gallery extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/api/gallery')
+    axios.get('/api/gallery')
       .then((res) => {
         if (res.statusText === 'OK') {
           const base64Flag = 'data:image/jpeg;base64,';
