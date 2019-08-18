@@ -1,0 +1,33 @@
+@import "../variables.scss";
+
+.location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+
+  h2 {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: $primary-color;
+  }
+
+  h4 {
+    margin-top: 20px;
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+
+  h5 {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
+  .map {
+    margin-top: 20px;
+    width: 80vw;
+    height: 60vw;
+    max-width: 800px;
+    max-height: 600px;
+  }
+}

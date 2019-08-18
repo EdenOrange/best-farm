@@ -4,12 +4,12 @@ import './About.scss';
 class About extends React.Component {
   render() {
     return (
-      <div className='about'>
+      <section className='about'>
         <h2>Tentang Kami</h2>
         <p>
           Kami menjual tanaman hidroponik
         </p>
-      </div>
+      </section>
     );
   }
 }
