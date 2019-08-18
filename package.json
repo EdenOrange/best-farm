@@ -2,6 +2,7 @@
   "name": "best-farm",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "axios": "^0.19.0",
     "dotenv": "^8.1.0",
@@ -16,6 +17,7 @@
   },
   "scripts": {
     "react-start": "react-scripts start",
+    "dev": "concurrently \"cd server && nodemon index.js\" \"react-scripts start\"",
     "start": "cd server && node index.js",
     "heroku-postbuild": "yarn install && yarn run build",
     "build": "react-scripts build",
@@ -38,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^4.1.2",
     "nodemon": "^1.19.1"
   }
 }
