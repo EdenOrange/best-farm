@@ -1,0 +1,13 @@
+@import "../variables.scss";
+
+.hero {
+  background-color: $primary-color;
+  margin-top: 50px;
+  height: 200px;
+}
+
+@media only screen and (min-width: $mobile-width) {
+  .hero {
+    height: 350px;
+  }
+}
