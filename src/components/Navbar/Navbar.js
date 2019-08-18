@@ -22,10 +22,6 @@ class NavbarMenu extends React.Component {
         {
           name: 'Gallery',
           href: '#'
-        },
-        {
-          name: 'Contact Us',
-          href: '#'
         }
       ],
       menuToggled: false,

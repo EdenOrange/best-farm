@@ -1,0 +1,52 @@
+@import "../variables.scss";
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  border-top: 2px solid $primary-color;
+
+  h2 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 2.2em;
+    font-weight: bold;
+    color: $primary-color;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    padding: 10px 15px;
+    border-radius: 7px;
+    text-decoration: none;
+    color: white;
+
+    i {
+      padding-right: 10px;
+    }
+  }
+
+  .whatsapp {
+    background-color: $accent-color-1;
+  }
+
+  .media {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 320px;
+  }
+
+  .facebook {
+    background-color: $primary-color;
+  }
+
+  .instagram {
+    background-color: grey;
+    color: white;
+  }
+}
