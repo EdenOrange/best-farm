@@ -1,5 +1,9 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import styles from './Navbar.scss';
+
+import Home from '../Home/Home';
+import Gallery from '../Gallery/Gallery';
 
 const MOBILE_WIDTH = parseInt(styles['mobile-width']);
 
@@ -10,11 +14,13 @@ class NavbarMenu extends React.Component {
       menuList: [
         {
           name: 'Home',
-          href: '#'
+          path: '/',
+          component: Home
         },
         {
           name: 'Gallery',
-          href: '#'
+          path: '/gallery/',
+          component: Gallery
         }
       ],
       menuToggled: false,
@@ -41,7 +47,7 @@ class NavbarMenu extends React.Component {
   render() {
     const menus = this.state.menuList.map(menu => {
       return (
-        <li key={menu.name}><a href={menu.href}>{menu.name}</a></li>
+        <li key={menu.name}><Link to={menu.path}>{menu.name}</Link></li>
       );
     });
   
