@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.scss';
+import './Home.scss';
 
 import Navbar from '../Navbar/Navbar';
 import Hero from '../Hero/Hero';
@@ -7,7 +7,7 @@ import About from '../About/About';
 import Location from '../Location/Location';
 import Contact from '../Contact/Contact';
 
-class App extends React.Component {
+class Home extends React.Component {
   render() {
     return (
       <div>
@@ -23,4 +23,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Home;
