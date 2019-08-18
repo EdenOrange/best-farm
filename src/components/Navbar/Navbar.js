@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import styles from './Navbar.scss';
 
 import Home from '../Home/Home';
@@ -23,23 +23,40 @@ class NavbarMenu extends React.Component {
           component: Gallery
         }
       ],
-      menuToggled: false,
-      mobileMenu: window.innerWidth < MOBILE_WIDTH
+      headerNode: null,
+      mobileMenu: window.innerWidth < MOBILE_WIDTH,
+      isMenuOpen: false,
     }
     this.openMenu = this.openMenu.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.closeMenu.bind(this));
-  }
-
-  openMenu(event) {
-    this.setState({ menuToggled: !this.state.menuToggled });
-  }
-
-  closeMenu() {
+    window.addEventListener('click', this.closeMenu.bind(this));
     this.setState({
-      menuToggled: this.state.menuToggled && window.innerWidth < MOBILE_WIDTH,
+      headerNode: document.getElementById('header')
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.state.isMenuOpen && this.props.location.pathname !== prevProps.location.pathname) {
+      this.setState({ isMenuOpen: false });
+    }
+  }
+
+  openMenu() {
+    this.setState({ isMenuOpen: !this.state.isMenuOpen });
+  }
+
+  closeMenu(event) {
+    if (event.type === 'click') {
+      const clickedOutsideHeader = !this.state.headerNode.contains(event.target);
+      if (this.state.isMenuOpen && clickedOutsideHeader){
+        this.setState({ isMenuOpen: false });
+      }
+    }
+    this.setState({
+      isMenuOpen: this.state.isMenuOpen && window.innerWidth < MOBILE_WIDTH,
       mobileMenu: window.innerWidth < MOBILE_WIDTH
     });
   }
@@ -54,8 +71,8 @@ class NavbarMenu extends React.Component {
     return (
       <nav className='navbar-menu'>
         <i className='fas fa-bars fa-lg' onClick={this.openMenu} />
-        {(this.state.menuToggled || !this.state.mobileMenu) && (
-          <ul>
+        {(this.state.isMenuOpen || !this.state.mobileMenu) && (
+          <ul id='menu-items'>
             {menus}
           </ul>
         )}
@@ -67,11 +84,11 @@ class NavbarMenu extends React.Component {
 class Navbar extends React.Component {
   render() {
     return (
-      <header className='navbar-container'>
-        <NavbarMenu />
+      <header className='navbar-container' id='header'>
+        <NavbarMenu {...this.props} />
       </header>
     );
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
