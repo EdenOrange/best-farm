@@ -2,12 +2,25 @@
 
 .hero {
   background-color: $primary-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   margin-top: 50px;
   height: 200px;
+}
+
+.hero-text {
+  margin-bottom: 15px;
+  text-align: center;
+  color: white;
 }
 
 @media only screen and (min-width: $mobile-width) {
   .hero {
     height: 350px;
+  }
+
+  .hero-text {
+    margin-bottom: 60px;
   }
 }
