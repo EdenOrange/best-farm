@@ -18,7 +18,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background : no-repeat center/cover url('../../assets/images/bg.jpg');
+  background : no-repeat center/cover url('../../assets/images/bg-small.jpg');
   opacity: 0.8;
 }
 
@@ -33,6 +33,10 @@
 @media only screen and (min-width: $mobile-width) {
   .hero {
     height: 350px;
+  }
+
+  .hero:after {
+    background-image: url('../../assets/images/bg.jpg');
   }
 
   .hero-text {
