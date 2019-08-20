@@ -1,11 +1,18 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import styles from './Navbar.scss';
+import logo from '../../assets/images/logo.jpg';
 
 import Home from '../Home/Home';
 import Gallery from '../Gallery/Gallery';
 
 const MOBILE_WIDTH = parseInt(styles['mobile-width']);
+
+function NavbarLogo() {
+  return (
+    <img src={logo} className='navbar-logo' alt='Best Farm logo' />
+  )
+}
 
 class NavbarMenu extends React.Component {
   constructor(props) {
@@ -85,6 +92,7 @@ class Navbar extends React.Component {
   render() {
     return (
       <header className='navbar-container' id='header'>
+        <NavbarLogo />
         <NavbarMenu {...this.props} />
       </header>
     );
