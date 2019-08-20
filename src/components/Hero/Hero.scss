@@ -1,7 +1,8 @@
 @import "../variables.scss";
 
 .hero {
-  background-color: $primary-color;
+  background-color: rgba(0, 0, 0, 0.125);
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -9,9 +10,21 @@
   height: 200px;
 }
 
+.hero:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background : no-repeat center/cover url('../../assets/images/bg.jpg');
+  opacity: 0.8;
+}
+
 .hero-text {
   margin-bottom: 15px;
-  font-size: 2.5em;
+  font-size: 3em;
   font-weight: bold;
   text-align: center;
   color: white;
@@ -23,6 +36,7 @@
   }
 
   .hero-text {
-    margin-bottom: 60px;
+    margin-bottom: 25px;
+    font-size: 4em;
   }
 }

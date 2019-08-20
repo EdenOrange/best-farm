@@ -6,7 +6,7 @@ class Hero extends React.Component {
     return (
       <section className='hero'>
         <h1 className='hero-text'>
-          Sayuran, Higienis Tanpa Pestisida
+          Segar &amp; Higienis
         </h1>
       </section>
     );
