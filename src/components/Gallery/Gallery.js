@@ -9,13 +9,14 @@ class Gallery extends React.Component {
     this.state = {
       images: [],
       chosenImage: '',
-      chosenImageLoading: true
+      chosenImageLoading: true,
+      thumbnailsLoading: true
     }
   }
 
   async componentDidMount() {
     try {
-      const res = await axios.get('/api/galleryall');
+      const res = await axios.get('/api/gallery');
       if (res.statusText === 'OK') {
         const imageData = res.data.map((image) => {
           const imageThumbnailStr = this.arrayBufferToBase64Src(image.imgThumbnail.data.data);
@@ -28,14 +29,15 @@ class Gallery extends React.Component {
         });
 
         if (imageData.length === 0) {
-          this.setState({ images: [] });
+          this.setState({ images: [], thumbnailsLoading: false });
           return;
         }
 
         this.requestFullImage(imageData[0].id);
         this.setState({
           images: imageData,
-          chosenImage: imageData[0].id
+          chosenImage: imageData[0].id,
+          thumbnailsLoading: false
         });
       }
     } catch (err) {
@@ -68,7 +70,7 @@ class Gallery extends React.Component {
     if (image.image === '') {
       return (
         <i className='fas fa-spinner fa-3x fa-spin'></i>
-      )
+      );
     } else {
       return (
         <img src={image.image} alt='' />
@@ -77,6 +79,11 @@ class Gallery extends React.Component {
   }
 
   renderImageThumbnails() {
+    if (this.state.images.length === 0) {
+      return (
+        <i className='fas fa-spinner fa-3x fa-spin'></i>
+      );
+    }
     const images = this.state.images.map(image => {
       return (
         <img
@@ -88,7 +95,11 @@ class Gallery extends React.Component {
         />
       );
     });
-    return images;
+    return (
+      <div className='image-grid'>
+          {images}
+      </div>
+    );
   }
 
   async requestFullImage(id) {
@@ -124,11 +135,11 @@ class Gallery extends React.Component {
   render() {
     return (
       <div className='gallery'>
-        <div className='image-chosen'>
+        <div className='image-chosen-container'>
           {this.renderChosenImage()}
         </div>
         <div className='gallery-divider' />
-        <div className='image-grid'>
+        <div className='image-thumbnails-container'>
           {this.renderImageThumbnails()}
         </div>
       </div>

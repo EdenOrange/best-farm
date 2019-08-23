@@ -49,23 +49,13 @@ router.post('/gallery', upload.single('image'), (req, res) => {
 });
 
 router.get('/gallery', (req, res, ) => {
-  Img.findOne({}, 'img', (err, img) => {
-    if (err) {
-      res.send(err);
-    }
-    res.contentType('json');
-    res.send(img);
-    console.log('GET /gallery : ' + img._id);
-  }).sort({ createdAt: 'desc' });
-});
-
-router.get('/galleryall', (req, res, ) => {
   Img.find({}, '_id imgThumbnail', (err, docs) => {
     if (err) {
       res.send(err);
     }
     res.contentType('json');
     res.send(docs);
+    console.log('GET /gallery')
   }).sort({ createdAt: 'desc' });
 })
 
@@ -76,7 +66,7 @@ router.get('/gallery/:id', (req, res, ) => {
     }
     res.contentType('json');
     res.send(img);
-    console.log('GET /gallery : ' + img._id);
+    console.log('GET /gallery/ : ' + img._id);
   });
 });
 
