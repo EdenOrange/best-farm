@@ -7,7 +7,9 @@ class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: []
+      images: [],
+      chosenImage: '',
+      chosenImageLoading: true
     }
   }
 
@@ -17,9 +19,24 @@ class Gallery extends React.Component {
       if (res.statusText === 'OK') {
         const imageData = res.data.map((image) => {
           const imageThumbnailStr = this.arrayBufferToBase64Src(image.imgThumbnail.data.data);
-          return { id: image._id, image: '', imageThumbnail: imageThumbnailStr}
+          return {
+            id: image._id,
+            image: '',
+            imageThumbnail: imageThumbnailStr,
+            requestingFullImage: false
+          }
         });
-        this.setState({ images: imageData });
+
+        if (imageData.length === 0) {
+          this.setState({ images: [] });
+          return;
+        }
+
+        this.requestFullImage(imageData[0].id);
+        this.setState({
+          images: imageData,
+          chosenImage: imageData[0].id
+        });
       }
     } catch (err) {
       console.log(err);
@@ -35,20 +52,57 @@ class Gallery extends React.Component {
     return base64Flag + str;
   }
 
+  renderChosenImage() {
+    const image = this.state.images.find((image) => image.id === this.state.chosenImage);
+    return (
+      <img src={image && image.image} alt='' />
+    );
+  }
+
   renderImageThumbnails() {
     const images = this.state.images.map(image => {
       return (
         <img className='image-thumbnail' src={image.imageThumbnail} alt='' key={image.id} />
       );
-    })
+    });
     return images;
+  }
+
+  async requestFullImage(id) {
+    try {
+      this.setState({
+        image: this.state.images.map((image) => {
+          if (image.id === id) {
+            image.requestingFullImage = true;
+          }
+          return image;
+        })
+      });
+      const res = await axios.get('/api/gallery/' + id);
+      if (res.statusText === 'OK') {
+        const imageStr = this.arrayBufferToBase64Src(res.data.img.data.data);
+        const newImages = this.state.images.map((image) => {
+          if (image.id === id) {
+            image.image = imageStr;
+            image.requestingFullImage = false;
+          }
+          return image;
+        });
+        this.setState({
+          images: newImages,
+          chosenImageLoading: false
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   render() {
     return (
       <div className='gallery'>
         <div className='image-chosen'>
-
+          {this.renderChosenImage()}
         </div>
         <div className='image-grid'>
           {this.renderImageThumbnails()}
