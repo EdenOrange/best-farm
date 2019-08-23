@@ -127,6 +127,7 @@ class Gallery extends React.Component {
         <div className='image-chosen'>
           {this.renderChosenImage()}
         </div>
+        <div className='gallery-divider' />
         <div className='image-grid'>
           {this.renderImageThumbnails()}
         </div>
