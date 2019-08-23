@@ -1,5 +1,6 @@
 import React from 'react';
 import './Gallery.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import axios from 'axios';
 
@@ -69,7 +70,12 @@ class Gallery extends React.Component {
     }
     if (image.image === '') {
       return (
-        <i className='fas fa-spinner fa-3x fa-spin'></i>
+        <FontAwesomeIcon
+          icon='spinner'
+          className='icon'
+          size='3x'
+          spin
+        />
       );
     } else {
       return (
@@ -81,7 +87,12 @@ class Gallery extends React.Component {
   renderImageThumbnails() {
     if (this.state.images.length === 0) {
       return (
-        <i className='fas fa-spinner fa-3x fa-spin'></i>
+        <FontAwesomeIcon
+          icon='spinner'
+          className='icon'
+          size='3x'
+          spin
+        />
       );
     }
     const images = this.state.images.map(image => {

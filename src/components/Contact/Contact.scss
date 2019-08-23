@@ -18,14 +18,18 @@
 
   a {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-top: 5px;
+    height: 50px;
     padding: 10px 15px;
     border-radius: 7px;
     text-decoration: none;
     color: white;
 
-    i {
+    .icon {
+      width: 35px;
+      height: 35px;
       padding-right: 10px;
     }
   }

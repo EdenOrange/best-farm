@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import styles from './Navbar.scss';
 import logo from '../../assets/images/logo.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Home from '../Home/Home';
 import Gallery from '../Gallery/Gallery';
@@ -77,7 +78,11 @@ class NavbarMenu extends React.Component {
   
     return (
       <nav className='navbar-menu'>
-        <i className='fas fa-bars fa-lg' onClick={this.openMenu} />
+        <FontAwesomeIcon
+          icon='bars'
+          className='icon'
+          onClick={this.openMenu}
+        />
         {(this.state.isMenuOpen || !this.state.mobileMenu) && (
           <ul id='menu-items'>
             {menus}
