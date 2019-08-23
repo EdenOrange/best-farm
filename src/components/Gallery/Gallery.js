@@ -11,32 +11,46 @@ class Gallery extends React.Component {
     }
   }
 
-  componentDidMount() {
-    axios.get('/api/gallery')
-      .then((res) => {
-        if (res.statusText === 'OK') {
-          const base64Flag = 'data:image/jpeg;base64,';
-          const imageStr = this.arrayBufferToBase64(res.data.img.data.data);
-          this.setState({ images: base64Flag + imageStr });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  async componentDidMount() {
+    try {
+      const res = await axios.get('/api/galleryall');
+      if (res.statusText === 'OK') {
+        const imageData = res.data.map((image) => {
+          const imageThumbnailStr = this.arrayBufferToBase64Src(image.imgThumbnail.data.data);
+          return { id: image._id, image: '', imageThumbnail: imageThumbnailStr}
+        });
+        this.setState({ images: imageData });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  arrayBufferToBase64(buffer) {
+  arrayBufferToBase64Src(buffer) {
     let binary = '';
     const bytes = [].slice.call(new Uint8Array(buffer));
     bytes.forEach(b => binary += String.fromCharCode(b));
-    return window.btoa(binary);
+    const str = window.btoa(binary);
+    const base64Flag = 'data:image/jpeg;base64,';
+    return base64Flag + str;
+  }
+
+  renderImages() {
+    const images = this.state.images.map(image => {
+      return (
+        <div key={image.id}>
+          <img src={image.imageThumbnail} alt=''/>
+        </div>
+      );
+    })
+    return images;
   }
 
   render() {
     return (
       <div>
         <p style={{marginTop: '200px'}}>Gallery</p>
-        <img src={this.state.images} alt='' />
+        {this.renderImages()}
       </div>
     );
   }

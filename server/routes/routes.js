@@ -11,6 +11,8 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
+const imageSize = require('image-size');
+const sharp = require('sharp');
 const fs = require('fs');
 const Img = require('../models/img');
 
@@ -18,13 +20,27 @@ router.post('/gallery', upload.single('image'), (req, res) => {
   const newImg = new Img;
   newImg.img.data = fs.readFileSync(req.file.path);
   newImg.img.contentType = 'image/jpeg';
-  newImg.save();
-  
-  fs.unlink(req.file.path, (err) => {
-    if (err) {
+  const dimensions = imageSize(newImg.img.data);
+  newImg.imgThumbnail.contentType = 'image/jpeg';
+  sharp(newImg.img.data)
+    .resize({
+      width: Math.round(0.1 * dimensions.width),
+      height: Math.round(0.1 * dimensions.height)
+    })
+    .toBuffer()
+    .then((data) => {
+      newImg.imgThumbnail.data = data;
+      newImg.save();
+      // Delete upload image file from storage
+      fs.unlink(req.file.path, (err) => {
+        if (err) {
+          console.log(err);
+        }
+      })
+    })
+    .catch((err) => {
       console.log(err);
-    }
-  })
+    });
 
   res.json({
     message: 'New image added to the db!'
@@ -33,7 +49,7 @@ router.post('/gallery', upload.single('image'), (req, res) => {
 });
 
 router.get('/gallery', (req, res, ) => {
-  Img.findOne({}, 'img createdAt', (err, img) => {
+  Img.findOne({}, 'img', (err, img) => {
     if (err) {
       res.send(err);
     }
@@ -41,6 +57,27 @@ router.get('/gallery', (req, res, ) => {
     res.send(img);
     console.log('GET /gallery : ' + img._id);
   }).sort({ createdAt: 'desc' });
+});
+
+router.get('/galleryall', (req, res, ) => {
+  Img.find({}, '_id imgThumbnail', (err, docs) => {
+    if (err) {
+      res.send(err);
+    }
+    res.contentType('json');
+    res.send(docs);
+  }).sort({ createdAt: 'desc' });
+})
+
+router.get('/gallery/:id', (req, res, ) => {
+  Img.findOne({ _id: req.params.id }, 'img', (err, img) => {
+    if (err) {
+      res.send(err);
+    }
+    res.contentType('json');
+    res.send(img);
+    console.log('GET /gallery : ' + img._id);
+  });
 });
 
 module.exports = router;

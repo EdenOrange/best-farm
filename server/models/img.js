@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ImgSchema = new Schema({
-  img: { data: Buffer, contentType: String }
+  img: { data: Buffer, contentType: String },
+  imgThumbnail: { data: Buffer, contentType: String }
 }, {
   timestamps: true
 });
