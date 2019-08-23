@@ -35,12 +35,10 @@ class Gallery extends React.Component {
     return base64Flag + str;
   }
 
-  renderImages() {
+  renderImageThumbnails() {
     const images = this.state.images.map(image => {
       return (
-        <div key={image.id}>
-          <img src={image.imageThumbnail} alt=''/>
-        </div>
+        <img className='image-thumbnail' src={image.imageThumbnail} alt='' key={image.id} />
       );
     })
     return images;
@@ -48,9 +46,13 @@ class Gallery extends React.Component {
 
   render() {
     return (
-      <div>
-        <p style={{marginTop: '200px'}}>Gallery</p>
-        {this.renderImages()}
+      <div className='gallery'>
+        <div className='image-chosen'>
+
+        </div>
+        <div className='image-grid'>
+          {this.renderImageThumbnails()}
+        </div>
       </div>
     );
   }
