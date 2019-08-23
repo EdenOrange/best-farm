@@ -52,17 +52,40 @@ class Gallery extends React.Component {
     return base64Flag + str;
   }
 
+  chooseImage(id) {
+    const image = this.state.images.find((image) => image.id === id);
+    if (image.image === '' && !image.requestingFullImage) {
+      this.requestFullImage(image.id);
+    }
+    this.setState({ chosenImage: image.id });
+  }
+
   renderChosenImage() {
     const image = this.state.images.find((image) => image.id === this.state.chosenImage);
-    return (
-      <img src={image && image.image} alt='' />
-    );
+    if (!image) {
+      return null;
+    }
+    if (image.image === '') {
+      return (
+        <i className='fas fa-spinner fa-3x fa-spin'></i>
+      )
+    } else {
+      return (
+        <img src={image.image} alt='' />
+      );
+    }
   }
 
   renderImageThumbnails() {
     const images = this.state.images.map(image => {
       return (
-        <img className='image-thumbnail' src={image.imageThumbnail} alt='' key={image.id} />
+        <img
+          className='image-thumbnail'
+          src={image.imageThumbnail}
+          alt=''
+          key={image.id}
+          onClick={() => this.chooseImage(image.id)}
+        />
       );
     });
     return images;
