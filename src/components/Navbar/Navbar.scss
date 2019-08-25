@@ -1,7 +1,6 @@
 @import "../variables.scss";
 
 .navbar-container {
-  background-color: white;
   position: fixed;
   z-index: $navbar-z-index;
   top: 0;
@@ -15,6 +14,16 @@
 
 .navbar-logo {
   max-height: 50px;
+}
+
+.navbar-background {
+  background-color: white;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
 }
 
 .navbar-menu {
@@ -32,9 +41,27 @@
   }
 
   ul {
-    position: absolute;
-    top: 50px;
+    position: fixed;
+    z-index: -2;
+    top: 25px;
     left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: 1s;
+
+    a {
+      pointer-events: none;
+    }
+
+    &.active {
+      top: 50px;
+      visibility: visible;
+      opacity: 1;
+
+      a {
+        pointer-events: auto;
+      }
+    }
   }
 
   li {

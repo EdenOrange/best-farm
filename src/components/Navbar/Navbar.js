@@ -75,6 +75,7 @@ class NavbarMenu extends React.Component {
         <li key={menu.name}><Link to={menu.path}>{menu.name}</Link></li>
       );
     });
+    const menuItemsActive = this.state.isMenuOpen || !this.state.mobileMenu;
   
     return (
       <nav className='navbar-menu'>
@@ -83,11 +84,9 @@ class NavbarMenu extends React.Component {
           className='icon'
           onClick={this.openMenu}
         />
-        {(this.state.isMenuOpen || !this.state.mobileMenu) && (
-          <ul id='menu-items'>
-            {menus}
-          </ul>
-        )}
+        <ul id='menu-items' className={menuItemsActive ? 'active' : ''}>
+          {menus}
+        </ul>
       </nav>
     );
   }
@@ -97,6 +96,7 @@ class Navbar extends React.Component {
   render() {
     return (
       <header className='navbar-container' id='header'>
+        <div className='navbar-background' />
         <NavbarLogo />
         <NavbarMenu {...this.props} />
       </header>
