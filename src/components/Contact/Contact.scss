@@ -21,6 +21,7 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 5px;
+    box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.25);
     height: 50px;
     padding: 10px 15px;
     border-radius: 7px;
@@ -35,7 +36,7 @@
   }
 
   .whatsapp {
-    background-color: $accent-color-1;
+    background: linear-gradient(to bottom, hsl(142, 70, 49), hsl(142, 70, 39));
   }
 
   .media {
@@ -46,11 +47,10 @@
   }
 
   .facebook {
-    background-color: $primary-color;
+    background: linear-gradient(to bottom, hsl(221, 44, 51), hsl(221, 44, 33));
   }
 
   .instagram {
-    background-color: grey;
-    color: white;
+    background: linear-gradient(-25deg, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737);
   }
 }
