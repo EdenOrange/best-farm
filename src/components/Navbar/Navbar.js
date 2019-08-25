@@ -35,7 +35,7 @@ class NavbarMenu extends React.Component {
       mobileMenu: window.innerWidth < MOBILE_WIDTH,
       isMenuOpen: false,
     }
-    this.openMenu = this.openMenu.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
   }
 
   componentDidMount() {
@@ -52,7 +52,7 @@ class NavbarMenu extends React.Component {
     }
   }
 
-  openMenu() {
+  toggleMenu() {
     this.setState({ isMenuOpen: !this.state.isMenuOpen });
   }
 
@@ -79,11 +79,18 @@ class NavbarMenu extends React.Component {
   
     return (
       <nav className='navbar-menu'>
-        <FontAwesomeIcon
-          icon='bars'
-          className='icon'
-          onClick={this.openMenu}
-        />
+        <div className='navbar-menu-icon'>
+          <FontAwesomeIcon
+            icon='bars'
+            className={menuItemsActive ? 'icon hide' : 'icon show'}
+            onClick={this.toggleMenu}
+          />
+          <FontAwesomeIcon
+            icon='times'
+            className={menuItemsActive ? 'icon show' : 'icon hide'}
+            onClick={this.toggleMenu}
+          />
+        </div>
         <ul id='menu-items' className={menuItemsActive ? 'active' : ''}>
           {menus}
         </ul>

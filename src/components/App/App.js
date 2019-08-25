@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faWhatsapp, faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faBars, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import Home from '../Home/Home';
 import Gallery from '../Gallery/Gallery';
@@ -25,7 +25,7 @@ class App extends React.Component {
         }
       ]
     }
-    library.add(faWhatsapp, faFacebookF, faInstagram, faBars, faSpinner);
+    library.add(faWhatsapp, faFacebookF, faInstagram, faBars, faTimes, faSpinner);
   }
 
   render() {
