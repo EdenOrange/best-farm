@@ -82,16 +82,30 @@ class NavbarMenu extends React.Component {
         <div className='navbar-menu-icon'>
           <FontAwesomeIcon
             icon='bars'
-            className={menuItemsActive ? 'icon hide' : 'icon show'}
+            className={
+              menuItemsActive 
+              ? 'icon hide' 
+              : 'icon show'}
             onClick={this.toggleMenu}
           />
           <FontAwesomeIcon
             icon='times'
-            className={menuItemsActive ? 'icon show' : 'icon hide'}
+            className={
+              menuItemsActive 
+              ? 'icon show' 
+              : 'icon hide'}
             onClick={this.toggleMenu}
           />
         </div>
-        <ul id='menu-items' className={menuItemsActive ? 'active' : ''}>
+        <ul 
+          id='menu-items' 
+          className={
+            this.state.mobileMenu 
+            ? this.state.isMenuOpen 
+              ? 'show' 
+              : 'hide' 
+            : 'desktop'}
+        >
           {menus}
         </ul>
       </nav>

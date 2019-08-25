@@ -64,21 +64,27 @@
     z-index: -2;
     top: 25px;
     left: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: 1s;
+    opacity: 0;           // Needed to prevent transition from desktop to mobile
+    visibility: hidden;   // Needed to prevent transition from desktop to mobile
 
-    a {
-      pointer-events: none;
-    }
-
-    &.active {
+    &.show {
       top: 50px;
       visibility: visible;
       opacity: 1;
+      transition: 1s;
 
       a {
         pointer-events: auto;
+      }
+    }
+
+    &.hide {
+      visibility: hidden;
+      opacity: 0;
+      transition: 1s;
+
+      a {
+        pointer-events: none;
       }
     }
   }
@@ -124,6 +130,12 @@
       position: initial;
       z-index: 0;
       display: flex;
+      visibility: visible;
+      opacity: 1;
+
+      &.desktop {
+        transition: 1s;
+      }
     }
 
     li {
