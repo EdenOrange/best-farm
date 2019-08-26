@@ -15,7 +15,6 @@ class Contact extends React.Component {
           />
           <span>0819 2954 1822</span>
         </a>
-        <div className='media'>
         <a href='https://www.facebook.com/bestfarm.bestfarm.7' className='facebook' target='_blank' rel='noopener noreferrer'>
           <FontAwesomeIcon
             icon={['fab', 'facebook-f']}
@@ -32,7 +31,6 @@ class Contact extends React.Component {
           />
           <span>bestfarmbelitung</span>
         </a>
-        </div>
       </section>
     );
   }

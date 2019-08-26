@@ -19,28 +19,23 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.25);
+    width: 225px;
     height: 50px;
+    margin: 5px 0;
     padding: 10px 15px;
     border-radius: 7px;
     text-decoration: none;
+    text-shadow: 1px 1px 3px black;
     color: white;
 
     .icon {
       width: 35px;
       height: 35px;
-      padding-right: 10px;
     }
   }
 
   .whatsapp {
     background: linear-gradient(to bottom, hsl(142, 70, 49), hsl(142, 70, 39));
-  }
-
-  .media {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    width: 320px;
   }
 
   .facebook {
