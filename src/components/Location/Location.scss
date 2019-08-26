@@ -8,25 +8,25 @@
   border-top: 2px solid $primary-color;
 
   h2 {
-    margin-top: 30px;
     font-size: 2.2em;
     font-weight: bold;
     color: $primary-color;
   }
 
   h4 {
-    margin-top: 20px;
+    margin: 0.5em;
     font-size: 1.3em;
     font-weight: bold;
   }
 
   h5 {
+    margin: 0.4em;
     font-size: 1.1em;
     font-weight: bold;
   }
 
   .map {
-    margin-top: 20px;
+    margin-top: 1.5em;
     width: 80vw;
     height: 60vw;
     max-width: 800px;

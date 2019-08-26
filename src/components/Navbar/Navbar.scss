@@ -66,6 +66,8 @@
     left: 0;
     opacity: 0;           // Needed to prevent transition from desktop to mobile
     visibility: hidden;   // Needed to prevent transition from desktop to mobile
+    margin: 0;
+    padding: 0;
 
     &.show {
       top: 50px;
