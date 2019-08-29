@@ -1,6 +1,8 @@
 import React from 'react';
 import './Gallery.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import Image from './Image/Image';
+import ImageThumbnails from './ImageThumbnails/ImageThumbnails';
 
 import axios from 'axios';
 
@@ -8,150 +10,46 @@ class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: [],
-      chosenImage: '',
-      chosenImageLoading: true,
-      thumbnailsLoading: true
+      imageIds: [],
+      chosenImageId: '',
+      loading: true
     }
+    this.chooseImage = this.chooseImage.bind(this);
   }
 
   async componentDidMount() {
     try {
       const res = await axios.get('/api/gallery');
       if (res.statusText === 'OK') {
-        const imageData = res.data.map((image) => {
-          const imageThumbnailStr = this.arrayBufferToBase64Src(image.imgThumbnail.data.data);
-          return {
-            id: image._id,
-            image: '',
-            imageThumbnail: imageThumbnailStr,
-            requestingFullImage: false
-          }
-        });
-
-        if (imageData.length === 0) {
-          this.setState({ images: [], thumbnailsLoading: false });
-          return;
-        }
-
-        this.requestFullImage(imageData[0].id);
-        this.setState({
-          images: imageData,
-          chosenImage: imageData[0].id,
-          thumbnailsLoading: false
+        const imageIds = res.data.map(imageId => imageId._id);
+        this.setState({ 
+          imageIds: imageIds,
+          chosenImageId: imageIds.length > 0 ? imageIds[0] : '',
+          loading: false
         });
       }
     } catch (err) {
       console.log(err);
     }
-  }
-
-  arrayBufferToBase64Src(buffer) {
-    let binary = '';
-    const bytes = [].slice.call(new Uint8Array(buffer));
-    bytes.forEach(b => binary += String.fromCharCode(b));
-    const str = window.btoa(binary);
-    const base64Flag = 'data:image/jpeg;base64,';
-    return base64Flag + str;
   }
 
   chooseImage(id) {
-    const image = this.state.images.find((image) => image.id === id);
-    if (image.image === '' && !image.requestingFullImage) {
-      this.requestFullImage(image.id);
-    }
-    this.setState({ chosenImage: image.id });
-  }
-
-  renderChosenImage() {
-    const image = this.state.images.find((image) => image.id === this.state.chosenImage);
-    if (!image) {
-      return null;
-    }
-    if (image.image === '') {
-      return (
-        <FontAwesomeIcon
-          icon='spinner'
-          className='icon'
-          size='3x'
-          spin
-        />
-      );
-    } else {
-      return (
-        <img src={image.image} alt='' />
-      );
-    }
-  }
-
-  renderImageThumbnails() {
-    if (this.state.images.length === 0) {
-      return (
-        <FontAwesomeIcon
-          icon='spinner'
-          className='icon'
-          size='3x'
-          spin
-        />
-      );
-    }
-    const images = this.state.images.map(image => {
-      return (
-        <img
-          className='image-thumbnail'
-          src={image.imageThumbnail}
-          alt=''
-          key={image.id}
-          onClick={() => this.chooseImage(image.id)}
-        />
-      );
-    });
-    return (
-      <div className='image-grid'>
-          {images}
-      </div>
-    );
-  }
-
-  async requestFullImage(id) {
-    try {
-      this.setState({
-        image: this.state.images.map((image) => {
-          if (image.id === id) {
-            image.requestingFullImage = true;
-          }
-          return image;
-        })
-      });
-      const res = await axios.get('/api/gallery/' + id);
-      if (res.statusText === 'OK') {
-        const imageStr = this.arrayBufferToBase64Src(res.data.img.data.data);
-        const newImages = this.state.images.map((image) => {
-          if (image.id === id) {
-            image.image = imageStr;
-            image.requestingFullImage = false;
-          }
-          return image;
-        });
-        this.setState({
-          images: newImages,
-          chosenImageLoading: false
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    this.setState({ chosenImageId: id });
   }
 
   render() {
     return (
       <div className='gallery'>
         <div className='image-chosen-container'>
-          {this.renderChosenImage()}
+          <Image id={this.state.chosenImageId} />
         </div>
         <div className='gallery-divider' />
         <div className='image-thumbnails-container'>
-          {this.renderImageThumbnails()}
+          <ImageThumbnails 
+            ids={this.state.imageIds} 
+            loading={this.state.loading} 
+            chooseImage={this.chooseImage}
+          />
         </div>
       </div>
     );

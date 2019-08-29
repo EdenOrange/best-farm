@@ -49,7 +49,7 @@ router.post('/gallery', upload.single('image'), (req, res) => {
 });
 
 router.get('/gallery', (req, res, ) => {
-  Img.find({}, '_id imgThumbnail', (err, docs) => {
+  Img.find({}, '_id', (err, docs) => {
     if (err) {
       res.send(err);
     }
@@ -60,14 +60,25 @@ router.get('/gallery', (req, res, ) => {
 })
 
 router.get('/gallery/:id', (req, res, ) => {
-  Img.findOne({ _id: req.params.id }, 'img', (err, img) => {
-    if (err) {
-      res.send(err);
-    }
-    res.contentType('json');
-    res.send(img);
-    console.log('GET /gallery/ : ' + img._id);
-  });
+  if (req.query.thumbnail === 'true') {
+    Img.findOne({ _id: req.params.id }, 'imgThumbnail', (err, img) => {
+      if (err) {
+        res.send(err);
+      }
+      res.contentType('json');
+      res.send(img);
+      console.log('GET /gallery/ thumbnail : ' + img._id);
+    });
+  } else {
+    Img.findOne({ _id: req.params.id }, 'img', (err, img) => {
+      if (err) {
+        res.send(err);
+      }
+      res.contentType('json');
+      res.send(img);
+      console.log('GET /gallery/ : ' + img._id);
+    });
+  }
 });
 
 module.exports = router;
