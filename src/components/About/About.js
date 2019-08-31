@@ -7,7 +7,7 @@ class About extends React.Component {
       <section className='about'>
         <h2>Tentang Kami</h2>
         <p>
-          Kami menjual tanaman hidroponik
+          Kami memproduksi sayuran dan buah-buahan hidroponik berkualitas dengan harga yang pantas
         </p>
       </section>
     );
