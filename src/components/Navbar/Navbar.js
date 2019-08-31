@@ -4,9 +4,6 @@ import styles from './Navbar.scss';
 import logo from '../../assets/images/logo.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import Home from '../Home/Home';
-import Gallery from '../Gallery/Gallery';
-
 const MOBILE_WIDTH = parseInt(styles['mobile-width']);
 
 function NavbarLogo() {
@@ -22,13 +19,11 @@ class NavbarMenu extends React.Component {
       menuList: [
         {
           name: 'Home',
-          path: '/',
-          component: Home
+          path: '/'
         },
         {
           name: 'Gallery',
-          path: '/gallery/',
-          component: Gallery
+          path: '/gallery/'
         }
       ],
       headerNode: null,

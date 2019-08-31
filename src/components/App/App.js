@@ -12,20 +12,6 @@ const Gallery = lazy(() => import('components/Gallery/Gallery'));
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      menuList: [
-        {
-          name: 'Home',
-          path: '/',
-          component: Home
-        },
-        {
-          name: 'Gallery',
-          path: '/gallery/',
-          component: Gallery
-        }
-      ]
-    }
     library.add(faWhatsapp, faFacebookF, faInstagram, faBars, faTimes, faSpinner);
   }
 
@@ -33,10 +19,13 @@ class App extends React.Component {
     const containerStyle = {
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center',
-      width: '100vw',
-      height: '100vh'
+      width: '100%'
     };
+    const iconStyle = {
+      position: 'absolute',
+      top: '50%',
+      trasnform: 'translateY(-50%)'
+    }
 
     return (
       <div style={containerStyle}>
@@ -45,6 +34,7 @@ class App extends React.Component {
           className='icon'
           size='3x'
           spin
+          style={iconStyle}
         />
       </div>
     );
@@ -57,14 +47,13 @@ class App extends React.Component {
         <Suspense fallback={this.renderLoadingScreen()}>
           <Route
             path='/' exact
-            render={(props) => <Home {...props} menuList={this.state.menuList} />}
+            component={Home}
           />
           <Route
             path='/gallery/' exact
-            render={(props) => <Gallery {...props} menuList={this.state.menuList} />}
+            component={Gallery}
           />
         </Suspense>
-        
       </Router>
     );
   }
