@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 .contact {
   display: flex;
@@ -43,6 +43,15 @@
   }
 
   .instagram {
-    background: linear-gradient(-25deg, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737);
+    background: linear-gradient(
+      -25deg,
+      #5851db,
+      #833ab4,
+      #c13584,
+      #e1306c,
+      #fd1d1d,
+      #f56040,
+      #f77737
+    );
   }
 }

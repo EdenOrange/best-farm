@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../../variables.scss';
 
 .navbar-container {
   position: fixed;
@@ -37,7 +37,7 @@
     width: 50px;
     height: 100%;
   }
-  
+
   .icon {
     position: absolute;
     width: 100%;
@@ -64,8 +64,8 @@
     z-index: -2;
     top: 25px;
     left: 0;
-    opacity: 0;           // Needed to prevent transition from desktop to mobile
-    visibility: hidden;   // Needed to prevent transition from desktop to mobile
+    opacity: 0; // Needed to prevent transition from desktop to mobile
+    visibility: hidden; // Needed to prevent transition from desktop to mobile
     margin: 0;
     padding: 0;
 
@@ -127,7 +127,7 @@
     .icon {
       display: none;
     }
-    
+
     ul {
       position: initial;
       z-index: 0;

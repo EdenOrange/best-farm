@@ -1,10 +1,9 @@
 import React from 'react';
 import './Gallery.scss';
+import axios from 'axios';
 
 import Image from './Image/Image';
 import ImageThumbnails from './ImageThumbnails/ImageThumbnails';
-
-import axios from 'axios';
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -12,8 +11,8 @@ class Gallery extends React.Component {
     this.state = {
       imageIds: [],
       chosenImageId: '',
-      loading: true
-    }
+      loading: true,
+    };
     this.chooseImage = this.chooseImage.bind(this);
   }
 
@@ -22,10 +21,10 @@ class Gallery extends React.Component {
       const res = await axios.get('/api/gallery');
       if (res.statusText === 'OK') {
         const imageIds = res.data.map(imageId => imageId._id);
-        this.setState({ 
-          imageIds: imageIds,
+        this.setState({
+          imageIds,
           chosenImageId: imageIds.length > 0 ? imageIds[0] : '',
-          loading: false
+          loading: false,
         });
       }
     } catch (err) {
@@ -38,18 +37,15 @@ class Gallery extends React.Component {
   }
 
   render() {
+    const { chosenImageId, imageIds, loading } = this.state;
     return (
-      <div className='gallery'>
-        <div className='image-chosen-container'>
-          <Image id={this.state.chosenImageId} />
+      <div className="gallery">
+        <div className="image-chosen-container">
+          <Image id={chosenImageId} />
         </div>
-        <div className='gallery-divider' />
-        <div className='image-thumbnails-container'>
-          <ImageThumbnails 
-            ids={this.state.imageIds} 
-            loading={this.state.loading} 
-            chooseImage={this.chooseImage}
-          />
+        <div className="gallery-divider" />
+        <div className="image-thumbnails-container">
+          <ImageThumbnails ids={imageIds} loading={loading} chooseImage={this.chooseImage} />
         </div>
       </div>
     );
